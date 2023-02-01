@@ -7,7 +7,7 @@ Introduction
     Ceci est un commentaire
 
 Écrivez votre introduction. L'introduction doit contenir les éléments suivants
-
+, c'est-à-dire
 - évoquer le but du projet (motivation personnelle)
 - évoquer les notions scientifiques / techiques utilisées dans le projet
 - Motivation

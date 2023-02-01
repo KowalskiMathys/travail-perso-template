@@ -12,6 +12,7 @@ Titre de votre travail personnel (changer dans `source/index.rst`)
     :caption: Table des matières
 
     introduction.rst
+    chapitre-01.md
     conclusion.rst
     references.rst
 
