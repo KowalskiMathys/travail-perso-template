@@ -3,23 +3,24 @@
 Conclusion
 ##########
 
-La programmation dynamique étant un mode de pensée, une sorte de motif de
-conception d'algorithme, ce travail avait pour but de présenter ses rouages
-plutôt que de présenter le fonctionnement d'algorithmes prêts à l'emploi. Ce
-travail met donc l'accent sur le raisonnement et le processus permettant de
-développer un algorithme de programmation dynamique de A à Z. 
+Comme évoqué plusieurs fois déjà depuis le début de ce projet, 
+lorsque l’on cherche à résoudre un sudoku en usant de méthode stochastique, 
+nous nous exposons à la possibilité de rester bloqué dans un optimum local. 
+Il faut donc utiliser des algorithme de complexité variable afin d’outrepasser ce problème. 
+De surcroit, il est possible que l’algorithme ne parvienne pas l’optimum 
+mais s’en rapproche ce qui pourrait avoir l’avantage en de cas particulier 
+d’aider à résoudre le sudoku. 
 
-Pour prétendre maîtriser la programmation dynamique, il faut cependant avoir
-développé des algorithmes pour plusieurs problèmes assez différents. L'ouvrage
-:cite:p:`cormen01introduction` regorge par exemple d'exemples divers et variés
-ainsi que d'exercices pour se faire la main. Il existe également de nombreux
-ouvrages ou sites Web répertoriant les problèmes de programmation dynamique
-fréquemment demandés en entretien d'embauche au poste d'ingénieur dans le
-domaine du développement. 
+Mais, soyons honnête, puisqu’un sudoku est jeu, 
+il vaut mieux y jouer honnêtement plutôt que laisser la machine 
+s’en charger. Si l’on use de métaheuristique sur un sudoku 
+ce n’est point le but de résoudre le sudoku, ou du moins ce but 
+n’est que secondaire. Le véritable intérêt des métaheuristique 
+dans ce cadre, est d’en comprendre les structures et de les expérimenter 
+ou peut être les améliorer. De plus, il est légitime de penser que 
+si l’on arrive à résoudre un sudoku, on puisse généraliser l’algorithme et 
+l’appliquer à d’autre situation plus complexe et moins facilement soluble 
+par l’homme sans recourir à des maths avancés. 
 
-J'aurais voulu avoir plus de temps pour approfondir la réflexion didactique dans
-l'optique de traiter ce sujet au cours d'option complémentaire informatique au
-Gymnase. La démarche présentée dans ce travail constitue quoi qu'il en soit une
-bonne base à cet effet. Ce sujet me semble clairement dépasser les attentes et
-les compétences attendues dans le cours de base mais, bien amené, il peut
-convenir pour l'option complémentaire informatique.
+..
+    à compléter par la suite

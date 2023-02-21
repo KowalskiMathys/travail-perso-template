@@ -4,7 +4,7 @@
     contain the root `toctree` directive.
     
 
-Titre de votre travail personnel (changer dans `source/index.rst`)
+Résoudre des sudoku avec les métaheuristiques
 =================================
 
 ..  toctree::
@@ -13,6 +13,8 @@ Titre de votre travail personnel (changer dans `source/index.rst`)
 
     introduction.rst
     chapitre-01.md
+    chapitre-02.md
+    chapitre-03.md
     conclusion.rst
     references.rst
 
