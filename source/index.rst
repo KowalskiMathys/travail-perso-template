@@ -16,7 +16,8 @@ Résoudre des sudoku avec les métaheuristiques
     chapitre-02.md
     chapitre-03.md
     conclusion.rst
-    references.rst
+    chapitre-00.md
+
 
 ..
     ..  toctree::
