@@ -78,3 +78,61 @@ Cette méthode est appelé au sein de la méthode `swapToPlace`. Cette dernière
 		for (val, row, col) in self.fixedValues:
 			self.swapToPlace(val, row, col)
 ```
+## Implémentation de Hill climbing
+La encore, l’implémentation se décompose en plusieurs méthodes. Afin de pouvoir résoudre un sudoku grâce au métaheuristique, il faut plusieurs moyen : une méthode capable de déterminer le « score » d’une solution. Cette méthode répond à la question : « Cet état est-il proche de l’optimum ? ». Il faut également une méthode qui va discriminer entre les solutions afin de retourner le meilleur voisin. Et finalement, il faut une méthode principale qui recommencer le processus encore et encore jusqu’à trouver un optimum local ou global. A noter, que dans ce cas, le critère d’arrêt est rempli lorsque l’on a atteint un optimum. Ces trois méthodes seront respectivement nommées `fitness`, `bestNeighbor` et `climHill`.
+
+### Cet état est-il proche de l’optimum ?
+Afin de répondre à cette question, on va créer une méthode `fitness` qui prend en paramètre optionnel une grille de sudoku. Si ce paramètre n’est pas remplis, alors il s’en suivra que la grille sera la grille actuelle. Cette méthode sera utile pour choisir le meilleur voisin. Afin de déterminer quel voisin est le meilleur, il faut un moyen de classer, de trier, ces voisin. Nous l’avons déjà vu plus tôt dans ce projet, il existe deux façon de trier les voisins : par nombre de chiffre qui pose problème ou par nombre de chiffre qui sont valide. C’est la deuxième approche qui est utiliser dans cette implémentation. Les voisins seront ordonné selon leur score. Le meilleur score, celui de la véritable solution, est de 243. Il s’agit en réalité de 81 + 81 + 81 car l’on va compter le nombre de chiffre valide par colonne, ligne et grille de 3x3. Le maximum que l’on puissent obtenir pour les grille de 3x3 est 81 car il y a 9 chiffre possiblement valide et il y a 9 grilles. De même pour les lignes et colonnes, il y a 9 chiffres par ligne/colonne et il y a 9 lignes/colonnes. Ce qui nous fait un total de 81. 
+Le code de la méthode `fitness` est donc le suivant :
+```python
+	def fitness(self, board=[]):
+		if(board == []):
+			board = self.board
+		score = 0
+		rows, cols = board.shape
+		for row in board:
+			score += len(np.unique(row))
+		for col in board.T:
+			score += len(np.unique(col))
+		for i in range(0, 3):
+			for j in range(0, 3):
+				sub = board[3*i:3*i+3, 3*j:3*j+3]
+				score += len(np.unique(sub))
+		return score
+```
+Vous pouvez également remarquez que l’on définit board comme liste vide et non comme self.board. Cela est du au fait qu’on ne peut pas faire référence à `self` puisqu’il n’a pas encore été pris en paramètre dans la méthode. Cette méthode , nommez fitness par son créateur qui de toute évidence avait un certain sens de l’humour, est globalement composé de trois parti principales. La première est une boucle qui va compter le nombre de valeurs valide par lignes et les ajouter au score. La deuxième fait de même avec les colonnes. Et la troisième compte le nombre de valeurs valides par grilles de 3x3.
+### Quel est le meilleur voisin ?
+Nous avons à présent un moyen de calculer le score d’une solution. Il nous faut à présent une méthode qui va analyser le voisinage. C’est précisément le but de la méthode `bestNeighbor`. Elle fonctionne ainsi : on commence par faire une copie de la grille dans `tempBoard`. Cela permet de travailler sur la copie et non sur la solution de base. On évite ainsi de remplacer la grille actuelle par une grille moins bonne. Ce qui suit demande un peu plus d’effort de compréhension et pourrait certainement être retravaillée. Comme vous pouvez le voir sur la méthode, on va procéder en faisant une première boucle où `i` correspond aux lignes de la grille, puis une deuxième boucle, interne à la première où `j` correspond aux colonnes de la grille. Jusque là c’est assez compréhensible. On va finalement effectuer une troisième boucle à l’intérieur de la deuxième où `k` correspond également à une colonne. 
+
+Cependant, il y a une différence majeure. Là ou `j` va de 0 à 8, `k`, lui, dépend de `i` puisqu’il va de `i` à 8. Cela permet de ne pas répéter des opérations déjà effectué. Puisque l’on va passer en revue chaque valeurs se trouvant dans la grille, il est tout à fait logique que l’on tombe sur une valeur fixe. Pour s’éviter des calculs inutiles (il ne sert à rien de regarder l’effet qu’un échange pourrait avoir puisque ces valeurs ne peuvent être échangées), la méthode va vérifier si une des deux valeurs (la valeurs se trouvant à la position (i,j) et celle se trouvant à la position (i,k)) est fixe. Le cas échéant, on va simplement passer par-dessus les opérations qui suivent. Mais si au contraire, les valeurs sont échangeables, alors on va les échanger créant ainsi une solution voisine. Il s’agit ensuite simplement de comparer le score du voisin nouvellement créé et du voisin précédemment enregistré comme meilleur voisin dans `best`.
+```python
+	def bestNeighbor(self):
+		tempBoard = self.board.copy()
+		best = (0, (0,0), -1)
+		for i in range(len(tempBoard)):
+			for j in range(len(tempBoard[i])):
+				for k in range(i,len(tempBoard)):
+					if(self.isFixed(i,j) or self.isFixed(i,k)):
+						continue
+					self.swap(tempBoard[i], j, k)
+					contestant = (i, (j,k), self.fitness(tempBoard))
+					if(contestant[2] > best[2]):
+						best = contestant
+					self.swap(tempBoard[i], j, k)
+		return best
+```
+### Puis-je trouver une meilleur solution ?
+Finalement, la réponse à cette question se trouvera dans la méthode principal du hill climbing, c’est-à-dire `climbHill`. Dans l’objectif de « grimper la colline », il est nécessaire de pouvoir effectivement se rapprocher du sommet (la solution) à chaque étapes. On va donc enregistré le score de la solution actuel dans `maxScore`. Dans un autre objectif, on va également enregistré les différents scores dans une liste afin de pouvoir analyser les données le moment venu. La suite est une simple boucle `while True` qui va simplement appelé la méthode `bestNeighbor` et comparé le score du meilleur voisin avec le score actuelle. S’il s’avère que la solution actuelle possède le meilleur score, la méthode se termine et il suffira d’accéder à la grille correspondante. Au contraire, si la solution voisine est meilleure, alors on va remplacer la solution actuelle par l’état voisin. Vous connaissez la suite, on continue ainsi jusqu’à trouver un optimum.
+```python
+	def climbHill(self):
+		scores = []
+		maxScore = self.fitness()
+		while True:
+			scores.append(maxScore)
+			(row, (col1, col2), nextScore) = self.bestNeighbor()
+			if(nextScore <= maxScore):
+				return scores
+			self.swap(self.board[row], col1, col2)
+			maxScore = nextScore
+```
+
