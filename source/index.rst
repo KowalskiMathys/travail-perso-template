@@ -16,6 +16,7 @@ Résoudre des sudoku avec les métaheuristiques
     chapitre-02.md
     chapitre-03.md
     chapitre-04.md
+    chapitre-05.md
     conclusion.rst
     chapitre-00.md
 
