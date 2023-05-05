@@ -2,13 +2,13 @@ class DocumentInfos:
 
     title = u'Résoudre des sudoku avec les métaheuristiques'
     first_name = 'Mathys'
-    last_name = 'Kowalski Mathys'
+    last_name = 'Kowalski'
     author = f'{first_name} {last_name}'
     year = u'2023'
-    month = u'Février'
+    month = u'Mai'
     seminary_title = u'Travail personnel OCI'
     tutor = u"Cédric Donner"
-    release = "(Version Intermédiaire)"
+    release = "(Version Finale)"
     repository_url = "https://github.com/<username>/<reponame>"
 
     @classmethod

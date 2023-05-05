@@ -21,6 +21,3 @@ ou peut être les améliorer. De plus, il est légitime de penser que
 si l’on arrive à résoudre un sudoku, on puisse généraliser l’algorithme et 
 l’appliquer à d’autre situation plus complexe et moins facilement soluble 
 par l’homme sans recourir à des maths avancés. 
-
-..
-    à compléter par la suite
