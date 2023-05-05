@@ -1,8 +1,27 @@
-# Analyse de l’implémentions
+# Analyse de l’implémention
 Malheureusement, nous savions qu’il était probable que la fonction se bloque dans un optimum local et c’est ce qui arrive constamment. Même si l’implémentation ne parvient pas à trouver une solution parfaite, elle s’en approche étonnamment près si l’on regarde les différents scores. De plus voici quelque graphique dénotant de la performance de l’algorithme a trouver la solution. On peut observer que le score moyen tourne autour des 220.
+
+```{figure} figures/Figure_1.png
+---
+width: 70%
+
+```
+
 
 Bien que l’on recommence plusieurs fois le hillclimbing afin de se rapprocher de la solution, on peut observer que cela ne crée pas une grande différence a cette échelle.
 Certainement que si l’on testait de recommencer à diffèrent endroit une centaine de fois plutôt qu’une dizaine pourrait-on voir une évolution. Je ne recommande cependant pas de faire cela car le programme commencera certainement à faire peinez votre ordinateur passé les 50 itérations.
+
+```{figure} figures/Figure_1a.png
+---
+width: 50%
+
+```
+```{figure} figures/Figure_1b.png
+---
+width: 50%
+
+```
+
 ## Code python complet
 ```python
 import numpy as np

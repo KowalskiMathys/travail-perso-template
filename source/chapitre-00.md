@@ -1,4 +1,7 @@
 # Sources
+## Implémentation
+FREIRE Guillherme, « Sudoku Genetic Algorithm and Hill Climbing », Consulté le 23 avril 2023. <https://github.com/GuilhermeFreire/Sudoku_Gen_Alg>
+
 ## Webographie
 
 PERILLOUS Céline, « Algorithmes de Résolution des SUDOKUS », Consulté le 20 février 2023. <http://igm.univ-mlv.fr/~dr/XPOSE2013/sudoku/stochastique.html>
